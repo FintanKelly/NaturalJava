@@ -16,21 +16,39 @@ public class BooleanL {
     }
 
     /**
-     * Receives some amount of boolean statements to check and see if there is
-     * at least one true statements.
-     * 
-     * Ex: checkFor(1 == 1, 2 == 1);
+     * Receives some amount of boolean statements to check and see if all of
+     * them are true or not.
      *
-     * @param statements - The set of statements that will be searched through
-     * @return True or False depending on if there is at least one true
-     * statement or not
+     * Ex: checkForTrue(1 == 1, 2 == 1);
+     *
+     * @param statements - The set of statements that will be checked
+     * @return - True if all of the statements are true and false if any of the
+     * statements are false.
      */
-    public boolean checkFor(boolean... statements) {
-        for (boolean object : statements) {
-            if (object) {
+    public boolean checkForTrue(boolean... statements) {
+        for (boolean statement : statements) {
+            if (!statement) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Receives some amount of boolean statements to check and see if they are
+     * all false.
+     *
+     * Ex: checkForFalse(1==2, 2==2);
+     *
+     * @param statements - The set of statements that will be checked
+     * @return - False if all of the statements are false and true if any of the
+     * statements are true.
+     */
+    public boolean checkForFalse(boolean... statements) {
+        for (boolean statement : statements) {
+            if (statement) {
                 return true;
-            } else {
-                System.out.println("You must use statements that can be assessed as true or false.");
             }
         }
 
