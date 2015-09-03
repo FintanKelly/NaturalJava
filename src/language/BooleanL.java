@@ -42,16 +42,16 @@ public class BooleanL {
      * Ex: checkForFalse(1==2, 2==2);
      *
      * @param statements - The set of statements that will be checked
-     * @return - False if all of the statements are false and true if any of the
+     * @return - True if all of the statements are false and false if any of the
      * statements are true.
      */
     public boolean checkForFalse(boolean... statements) {
         for (boolean statement : statements) {
             if (statement) {
-                return true;
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
 }

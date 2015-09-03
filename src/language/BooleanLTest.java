@@ -45,8 +45,8 @@ public class BooleanLTest {
         boolean statementTwo = 2 == 1;
 
         assertFalse(language.checkForFalse(statementOne));
+        assertFalse(language.checkForFalse(statementOne, statementTwo));
 
         assertTrue(language.checkForFalse(statementTwo));
-        assertTrue(language.checkForFalse(statementOne, statementTwo));
     }
 }
