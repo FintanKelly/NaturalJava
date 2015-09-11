@@ -1,15 +1,18 @@
 package testing;
 
+import java.util.Date;
 import language.BooleanLanguage;
 import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
- * This will act as the test case for the BooleanLanguage class.
+ * This will act as the test case for the BooleanLanguage class. Note: This
+ * class will not explain the reasoning or logic behind functionality, all of
+ * that can be found in the BooleanLanguage class itself.
  *
  * @author Harmtouch
  */
-public class BooleanLTest {
+public class BooleanTest {
 
     /**
      * The variables that will be used in every test case.
@@ -20,12 +23,12 @@ public class BooleanLTest {
     /**
      * Default constructor, nothing is needed in here for setup at the moment.
      */
-    public BooleanLTest() {
+    public BooleanTest() {
     }
 
     @Before
     /**
-     * Set up all the necessary material for testing the BooleanL class
+     * Set up all the necessary material for testing the BooleanLanguage class
      */
     public void setUp() {
         language = new BooleanLanguage();
@@ -65,7 +68,11 @@ public class BooleanLTest {
      * Test the 'and' method for code accuracy
      */
     public void testAnd() {
-        testCheckForTrue();
+        assertTrue(BooleanLanguage.and(statementOne));
+        assertTrue(BooleanLanguage.and(statementOne, statementThree));
+
+        assertFalse(BooleanLanguage.and(statementTwo));
+        assertFalse(BooleanLanguage.and(statementOne, statementTwo));
     }
 
     @Test
@@ -76,7 +83,34 @@ public class BooleanLTest {
         assertTrue(BooleanLanguage.or(statementOne));
         assertTrue(BooleanLanguage.or(statementOne, statementTwo));
 
-        assertFalse(language.or(statementTwo));
-        assertFalse(language.or(statementTwo, statementFour));
+        assertFalse(BooleanLanguage.or(statementTwo));
+        assertFalse(BooleanLanguage.or(statementTwo, statementFour));
+    }
+
+    @Test
+    /**
+     * Test the 'compareIdentity' method for code accuracy
+     */
+    public void testCompareIdentity() {
+        Integer a = new Integer(1);
+        Integer b = a;
+        Integer c = new Integer(1);
+
+        assertTrue(BooleanLanguage.compareIdentity(a, b));
+        assertFalse(BooleanLanguage.compareIdentity(a, c));
+        assertTrue(BooleanLanguage.compareIdentity());
+    }
+
+    @Test
+    /**
+     * Test the 'compareEquality' method for code accuracy
+     */
+    public void testCompareEquality() throws Exception {
+        Integer a = new Integer(1);
+        Integer b = a;
+        Integer c = new Integer(2);
+
+        assertTrue(BooleanLanguage.compareEquality(a, b, false));
+        assertFalse(BooleanLanguage.compareEquality(a, c, false));
     }
 }
