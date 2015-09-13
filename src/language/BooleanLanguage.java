@@ -81,8 +81,7 @@ public final class BooleanLanguage {
     }
 
     /**
-     * Synonym method for checking to see if any included boolean statements are
-     * true.
+     * Checks to see if any included boolean statements are true.
      *
      * Ex: or(1 == 1, 2 == 1);
      *
@@ -102,10 +101,22 @@ public final class BooleanLanguage {
     }
 
     /**
-     * Takes a list of unknown objects and compares them for identity. The
-     * objects will be transferred to an IdentityHashMap and then checked to see
-     * if the previous value is identical to the next added value. If this ever
-     * not true, then it means that there was a value that was not identical.
+     * Synonym method to check if the included boolean statements are all false.
+     *
+     * Ex: not(1 == 1, 2 == 1);
+     *
+     * @param statements - The set of logic statements to check
+     * @return - True if all of the statements are false and false if any of the
+     * statements are true
+     */
+    public static boolean not(boolean... statements) {
+        return checkForFalse(statements);
+    }
+
+    /**
+     * Takes a list of unknown objects and compares them for identity. This can
+     * be accomplished simply by looping through the objects and comparing them
+     * with '=='.
      *
      * Ex: compareIdentity("test", "test");
      *
@@ -114,24 +125,31 @@ public final class BooleanLanguage {
      * not
      */
     public static boolean compareIdentity(Object... objects) {
-        Map<Class<?>, Object> objectMap = new IdentityHashMap<>();
-
-        for (Object object : objects) {
-            if (objectMap.isEmpty()) {
-                objectMap.put(object.getClass(), object);
-            } else {
-                Object oldValue = objectMap.get(object.getClass());
-                objectMap.put(object.getClass(), object);
-
-                if (oldValue != objectMap.get(object.getClass())) {
-                    return false;
-                } else {
-                    return true;
-                }
+        for (int i = 1; i < objects.length; i++) {
+            if (objects[i] != objects[i - 1]) {
+                return false;
             }
         }
 
         return true;
+
+        /**
+         * Example of using IdentityHashMap:
+         *
+         * Map<Class<?>, Object> objectMap = new IdentityHashMap<>();
+         *
+         * for (Object object : objects) { if (objectMap.isEmpty()) {
+         * objectMap.put(object.getClass(), object); } else { Object oldValue =
+         * objectMap.get(object.getClass()); objectMap.put(object.getClass(),
+         * object);
+         *
+         * if (oldValue != objectMap.get(object.getClass())) { return false; } }
+         * }
+         *
+         * return true;
+         *
+         *
+         */
     }
 
     /**
@@ -141,7 +159,7 @@ public final class BooleanLanguage {
      * -MUST- be a boolean indicating if the objects the user is comparing are
      * user created or not.
      *
-     * Ex:
+     * Ex: compareIdentity("test", "test");
      *
      * @param objects - The set of unknown objects
      * @return - True if the contents of all the objects are equal or false if
@@ -171,7 +189,9 @@ public final class BooleanLanguage {
         if (overridesMethod(hashMethod, Object.class) && (overridesMethod(equalsMethod, Object.class))) {
             Set<Object> objectSet = new HashSet<>(Arrays.asList(objects));
 
-            return objectSet.size() == 1;
+            if (objectSet.size() == 1) {
+                return true;
+            }
         }
 
         return false;
@@ -183,10 +203,14 @@ public final class BooleanLanguage {
      * @param method - The method that is being checked
      * @param mainClass - The class that is being checked for ownership of the
      * method
-     * @return True if the method does not belong to the class and false if it
+     * @return - True if the method does not belong to the class and false if it
      * does
      */
     public static boolean overridesMethod(Method method, Class<?> mainClass) {
-        return mainClass == method.getDeclaringClass();
+        if (mainClass == method.getDeclaringClass()) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -89,6 +89,18 @@ public class BooleanTest {
 
     @Test
     /**
+     * Test the 'and' method for code accuracy
+     */
+    public void testNot() {
+        assertTrue(BooleanLanguage.checkForFalse(statementTwo));
+        assertTrue(BooleanLanguage.checkForFalse(statementTwo, statementFour));
+
+        assertFalse(BooleanLanguage.checkForFalse(statementOne));
+        assertFalse(BooleanLanguage.checkForFalse(statementOne, statementTwo));
+    }
+
+    @Test
+    /**
      * Test the 'compareIdentity' method for code accuracy
      */
     public void testCompareIdentity() {
@@ -98,6 +110,7 @@ public class BooleanTest {
 
         assertTrue(BooleanLanguage.compareIdentity(a, b));
         assertFalse(BooleanLanguage.compareIdentity(a, c));
+        assertFalse(BooleanLanguage.compareIdentity(a, c, b));
         assertTrue(BooleanLanguage.compareIdentity());
     }
 
