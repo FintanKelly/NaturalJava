@@ -3,8 +3,6 @@ package language;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.IdentityHashMap;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -155,20 +153,20 @@ public final class BooleanLanguage {
     /**
      * Takes a list of unknown objects and compares them for equality. This
      * method will -ONLY- work if the user has overridden the equals and
-     * hashCode methods to check for the right contents. The last parameter
+     * hashCode methods to check for the right contents. The first parameter
      * -MUST- be a boolean indicating if the objects the user is comparing are
      * user created or not.
      *
      * Ex: compareIdentity("test", "test");
      *
+     * @param userCreated - Are the included classes user created?
      * @param objects - The set of unknown objects
      * @return - True if the contents of all the objects are equal or false if
      * they are not.
      */
-    public static boolean compareEquality(Object... objects) {
+    public static boolean compareEquality(boolean userCreated, Object... objects) {
         Method hashMethod = null;
         Method equalsMethod = null;
-        Boolean userCreated = (boolean) objects[objects.length - 1];
 
         if (userCreated) {
             try {
@@ -177,8 +175,6 @@ public final class BooleanLanguage {
             } catch (NoSuchMethodException ex) {
                 System.out.println("Please override the hashCode and equals method for your classes first!");
             }
-        } else if (!userCreated.getClass().equals(Boolean.class)) {
-            System.out.println("Please add a boolean indicating if the objects belongs to a user created classes.");
         } else {
             Set<Object> objectSet = new HashSet<>(Arrays.asList(objects));
             objectSet.remove(userCreated);

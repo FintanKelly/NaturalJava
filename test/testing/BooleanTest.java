@@ -1,6 +1,5 @@
 package testing;
 
-import java.util.Date;
 import language.BooleanLanguage;
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -123,7 +122,7 @@ public class BooleanTest {
         Integer b = a;
         Integer c = new Integer(2);
 
-        assertTrue(BooleanLanguage.compareEquality(a, b, false));
-        assertFalse(BooleanLanguage.compareEquality(a, c, false));
+        assertTrue(BooleanLanguage.compareEquality(false, a, b));
+        assertFalse(BooleanLanguage.compareEquality(false, a, c));
     }
 }

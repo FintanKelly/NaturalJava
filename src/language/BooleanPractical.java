@@ -16,7 +16,7 @@ public class BooleanPractical {
      * @param args - Command line arguments, not being used.
      */
     public static void main(String[] args) {
-        if (checkForTrue(1 == 1, or(1 == 2, 2 == 2), and(not(compareEquality("test", "Test", false))))) {
+        if (checkForTrue(1 == 1, or(1 == 2, 2 == 2), and(not(compareEquality(false, "test", "Test"))))) {
             System.out.println("Success!");
         } else {
             System.out.println("Failure!");
