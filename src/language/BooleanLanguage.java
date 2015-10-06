@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class will contain methods that turn basic boolean algebra into natural
@@ -152,58 +154,30 @@ public final class BooleanLanguage {
 
     /**
      * Takes a list of unknown objects and compares them for equality. This
-     * method will -ONLY- work if the user has overridden the equals and
-     * hashCode methods to check for the right contents. The first parameter
-     * -MUST- be a boolean indicating if the objects the user is comparing are
-     * user created or not.
+     * method will assume that the user has overridden the hashCode and equals
+     * method where necessary.
      *
      * Ex: compareIdentity("test", "test");
      *
-     * @param userCreated - Are the included classes user created?
      * @param objects - The set of unknown objects
      * @return - True if the contents of all the objects are equal or false if
      * they are not.
      */
-    public static boolean compareEquality(boolean userCreated, Object... objects) {
-        Method hashMethod = null;
-        Method equalsMethod = null;
+    public static boolean compareEquality(Object... objects) {
+        Set<Object> objectSet = new HashSet<>(Arrays.asList(objects));
 
-        if (userCreated) {
-            try {
-                hashMethod = objects.getClass().getMethod("hashCode");
-                equalsMethod = objects.getClass().getMethod("equals");
-            } catch (NoSuchMethodException ex) {
-                System.out.println("Please override the hashCode and equals method for your classes first!");
-            }
-        } else {
-            Set<Object> objectSet = new HashSet<>(Arrays.asList(objects));
-            objectSet.remove(userCreated);
-
-            return objectSet.size() == 1;
-        }
-
-        if (overridesMethod(hashMethod, Object.class) && (overridesMethod(equalsMethod, Object.class))) {
-            Set<Object> objectSet = new HashSet<>(Arrays.asList(objects));
-
-            if (objectSet.size() == 1) {
-                return true;
-            }
-        }
-
-        return false;
+        return objectSet.size() == 1;
     }
 
     /**
      * Checks to see if a given method belongs to the given class or not.
      *
      * @param method - The method that is being checked
-     * @param mainClass - The class that is being checked for ownership of the
-     * method
      * @return - True if the method does not belong to the class and false if it
      * does
      */
-    public static boolean overridesMethod(Method method, Class<?> mainClass) {
-        if (mainClass == method.getDeclaringClass()) {
+    public static boolean overridesMethod(Method method) {
+        if (Object.class != method.getDeclaringClass()) {
             return true;
         }
 
