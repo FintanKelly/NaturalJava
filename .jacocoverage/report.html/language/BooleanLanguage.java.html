@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>BooleanLanguage.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;LanguageCoding&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">language</a> &gt; <span class="el_source">BooleanLanguage.java</span></div><h1>BooleanLanguage.java</h1><pre class="source lang-java linenums">package language;
 
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.IdentityHashMap;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -19,9 +16,9 @@ public final class BooleanLanguage {
      * Default constructor, not necessary to include anything here at the
      * moment.
      */
-<span class="fc" id="L22">    public BooleanLanguage() {</span>
+<span class="fc" id="L19">    public BooleanLanguage() {</span>
 
-<span class="fc" id="L24">    }</span>
+<span class="fc" id="L21">    }</span>
 
     /**
      * Receives some amount of boolean statements to check and see if all of
@@ -35,13 +32,13 @@ public final class BooleanLanguage {
      * statements are false
      */
     public static boolean checkForTrue(boolean... statements) {
-<span class="fc bfc" id="L38" title="All 2 branches covered.">        for (boolean statement : statements) {</span>
-<span class="fc bfc" id="L39" title="All 2 branches covered.">            if (!statement) {</span>
-<span class="fc" id="L40">                return false;</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        for (boolean statement : statements) {</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">            if (!statement) {</span>
+<span class="fc" id="L37">                return false;</span>
             }
         }
 
-<span class="fc" id="L44">        return true;</span>
+<span class="fc" id="L41">        return true;</span>
     }
 
     /**
@@ -56,13 +53,13 @@ public final class BooleanLanguage {
      * statements are true
      */
     public static boolean checkForFalse(boolean... statements) {
-<span class="fc bfc" id="L59" title="All 2 branches covered.">        for (boolean statement : statements) {</span>
-<span class="fc bfc" id="L60" title="All 2 branches covered.">            if (statement) {</span>
-<span class="fc" id="L61">                return false;</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        for (boolean statement : statements) {</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">            if (statement) {</span>
+<span class="fc" id="L58">                return false;</span>
             }
         }
 
-<span class="fc" id="L65">        return true;</span>
+<span class="fc" id="L62">        return true;</span>
     }
 
     /**
@@ -77,12 +74,11 @@ public final class BooleanLanguage {
      * statements are false
      */
     public static boolean and(boolean... statements) {
-<span class="fc" id="L80">        return checkForTrue(statements);</span>
+<span class="fc" id="L77">        return checkForTrue(statements);</span>
     }
 
     /**
-     * Synonym method for checking to see if any included boolean statements are
-     * true.
+     * Checks to see if any included boolean statements are true.
      *
      * Ex: or(1 == 1, 2 == 1);
      *
@@ -92,20 +88,32 @@ public final class BooleanLanguage {
      * statements are false
      */
     public static boolean or(boolean... statements) {
-<span class="fc bfc" id="L95" title="All 2 branches covered.">        for (boolean statement : statements) {</span>
-<span class="fc bfc" id="L96" title="All 2 branches covered.">            if (statement) {</span>
-<span class="fc" id="L97">                return true;</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        for (boolean statement : statements) {</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">            if (statement) {</span>
+<span class="fc" id="L93">                return true;</span>
             }
         }
 
-<span class="fc" id="L101">        return false;</span>
+<span class="fc" id="L97">        return false;</span>
     }
 
     /**
-     * Takes a list of unknown objects and compares them for identity. The
-     * objects will be transferred to an IdentityHashMap and then checked to see
-     * if the previous value is identical to the next added value. If this ever
-     * not true, then it means that there was a value that was not identical.
+     * Synonym method to check if the included boolean statements are all false.
+     *
+     * Ex: not(1 == 1, 2 == 1);
+     *
+     * @param statements - The set of logic statements to check
+     * @return - True if all of the statements are false and false if any of the
+     * statements are true
+     */
+    public static boolean not(boolean... statements) {
+<span class="fc" id="L110">        return checkForFalse(statements);</span>
+    }
+
+    /**
+     * Takes a list of unknown objects and compares them for identity. This can
+     * be accomplished simply by looping through the objects and comparing them
+     * with '=='.
      *
      * Ex: compareIdentity(&quot;test&quot;, &quot;test&quot;);
      *
@@ -114,80 +122,48 @@ public final class BooleanLanguage {
      * not
      */
     public static boolean compareIdentity(Object... objects) {
-<span class="fc" id="L117">        Map&lt;Class&lt;?&gt;, Object&gt; objectMap = new IdentityHashMap&lt;&gt;();</span>
-
-<span class="fc bfc" id="L119" title="All 2 branches covered.">        for (Object object : objects) {</span>
-<span class="fc bfc" id="L120" title="All 2 branches covered.">            if (objectMap.isEmpty()) {</span>
-<span class="fc" id="L121">                objectMap.put(object.getClass(), object);</span>
-            } else {
-<span class="fc" id="L123">                Object oldValue = objectMap.get(object.getClass());</span>
-<span class="fc" id="L124">                objectMap.put(object.getClass(), object);</span>
-
-<span class="fc bfc" id="L126" title="All 2 branches covered.">                if (oldValue != objectMap.get(object.getClass())) {</span>
-<span class="fc" id="L127">                    return false;</span>
-                } else {
-<span class="fc" id="L129">                    return true;</span>
-                }
+<span class="fc bfc" id="L125" title="All 2 branches covered.">        for (int i = 1; i &lt; objects.length; i++) {</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">            if (objects[i] != objects[i - 1]) {</span>
+<span class="fc" id="L127">                return false;</span>
             }
         }
 
-<span class="fc" id="L134">        return true;</span>
+<span class="fc" id="L131">        return true;</span>
+
+        /**
+         * Example of using IdentityHashMap:
+         *
+         * Map&lt;Class&lt;?&gt;, Object&gt; objectMap = new IdentityHashMap&lt;&gt;();
+         *
+         * for (Object object : objects) { if (objectMap.isEmpty()) {
+         * objectMap.put(object.getClass(), object); } else { Object oldValue =
+         * objectMap.get(object.getClass()); objectMap.put(object.getClass(),
+         * object);
+         *
+         * if (oldValue != objectMap.get(object.getClass())) { return false; } }
+         * }
+         *
+         * return true;
+         *
+         *
+         */
     }
 
     /**
      * Takes a list of unknown objects and compares them for equality. This
-     * method will -ONLY- work if the user has overridden the equals and
-     * hashCode methods to check for the right contents. The last parameter
-     * -MUST- be a boolean indicating if the objects the user is comparing are
-     * user created or not.
+     * method will assume that the user has overridden the hashCode and equals
+     * method where necessary.
      *
-     * Ex:
+     * Ex: compareIdentity(&quot;test&quot;, &quot;test&quot;);
      *
      * @param objects - The set of unknown objects
      * @return - True if the contents of all the objects are equal or false if
      * they are not.
      */
     public static boolean compareEquality(Object... objects) {
-<span class="fc" id="L151">        Method hashMethod = null;</span>
-<span class="fc" id="L152">        Method equalsMethod = null;</span>
-<span class="fc" id="L153">        Boolean userCreated = (boolean) objects[objects.length - 1];</span>
+<span class="fc" id="L164">        Set&lt;Object&gt; objectSet = new HashSet&lt;&gt;(Arrays.asList(objects));</span>
 
-<span class="pc bpc" id="L155" title="1 of 2 branches missed.">        if (userCreated) {</span>
-            try {
-<span class="nc" id="L157">                hashMethod = objects.getClass().getMethod(&quot;hashCode&quot;);</span>
-<span class="nc" id="L158">                equalsMethod = objects.getClass().getMethod(&quot;equals&quot;);</span>
-<span class="nc" id="L159">            } catch (NoSuchMethodException ex) {</span>
-<span class="nc" id="L160">                System.out.println(&quot;Please override the hashCode and equals method for your classes first!&quot;);</span>
-<span class="nc" id="L161">            }</span>
-<span class="pc bpc" id="L162" title="1 of 2 branches missed.">        } else if (!userCreated.getClass().equals(Boolean.class)) {</span>
-<span class="nc" id="L163">            System.out.println(&quot;Please add a boolean indicating if the objects belongs to a user created classes.&quot;);</span>
-        } else {
-<span class="fc" id="L165">            Set&lt;Object&gt; objectSet = new HashSet&lt;&gt;(Arrays.asList(objects));</span>
-<span class="fc" id="L166">            objectSet.remove(userCreated);</span>
-
-<span class="pc bpc" id="L168" title="1 of 2 branches missed.">            return objectSet.size() == 1;</span>
-        }
-
-<span class="nc bnc" id="L171" title="All 4 branches missed.">        if (overridesMethod(hashMethod, Object.class) &amp;&amp; (overridesMethod(equalsMethod, Object.class))) {</span>
-<span class="nc" id="L172">            Set&lt;Object&gt; objectSet = new HashSet&lt;&gt;(Arrays.asList(objects));</span>
-
-<span class="nc bnc" id="L174" title="All 2 branches missed.">            return objectSet.size() == 1;</span>
-        }
-
-<span class="nc" id="L177">        return false;</span>
-    }
-
-    /**
-     * Checks to see if a given method belongs to the given class or not.
-     *
-     * @param method - The method that is being checked
-     * @param mainClass - The class that is being checked for ownership of the
-     * method
-     * @return True if the method does not belong to the class and false if it
-     * does
-     */
-    public static boolean overridesMethod(Method method, Class&lt;?&gt; mainClass) {
-<span class="nc bnc" id="L190" title="All 2 branches missed.">        return mainClass == method.getDeclaringClass();</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">        return objectSet.size() == 1;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

@@ -92,11 +92,11 @@ public class BooleanTest {
      * Test the 'and' method for code accuracy
      */
     public void testNot() {
-        assertTrue(BooleanLanguage.checkForFalse(statementTwo));
-        assertTrue(BooleanLanguage.checkForFalse(statementTwo, statementFour));
+        assertTrue(BooleanLanguage.not(statementTwo));
+        assertTrue(BooleanLanguage.not(statementTwo, statementFour));
 
-        assertFalse(BooleanLanguage.checkForFalse(statementOne));
-        assertFalse(BooleanLanguage.checkForFalse(statementOne, statementTwo));
+        assertFalse(BooleanLanguage.not(statementOne));
+        assertFalse(BooleanLanguage.not(statementOne, statementTwo));
     }
 
     @Test

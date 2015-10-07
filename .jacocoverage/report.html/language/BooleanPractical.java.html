@@ -3,17 +3,24 @@
 import static language.BooleanLanguage.*;
 
 /**
+ * This is a small class that will contain examples of how the methods inside
+ * BooleanLanguage can be used.
  *
  * @author Harmtouch
  */
-<span class="nc" id="L9">public class BooleanPractical {</span>
+<span class="nc" id="L11">public class BooleanPractical {</span>
 
+    /**
+     * Main executed method.
+     *
+     * @param args - Command line arguments, not being used.
+     */
     public static void main(String[] args) {
-<span class="nc bnc" id="L12" title="All 2 branches missed.">        if (checkForTrue(1 == 1, or(1 == 2, 2 == 2))) {</span>
-<span class="nc" id="L13">            System.out.println(&quot;Success!&quot;);</span>
+<span class="nc bnc" id="L19" title="All 2 branches missed.">        if (checkForTrue(1 == 1, or(1 == 2, 2 == 2), and(not(compareEquality(false, &quot;test&quot;, &quot;Test&quot;))))) {</span>
+<span class="nc" id="L20">            System.out.println(&quot;Success!&quot;);</span>
         } else {
-<span class="nc" id="L15">            System.out.println(&quot;Failure!&quot;);</span>
+<span class="nc" id="L22">            System.out.println(&quot;Failure!&quot;);</span>
         }
-<span class="nc" id="L17">    }</span>
+<span class="nc" id="L24">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

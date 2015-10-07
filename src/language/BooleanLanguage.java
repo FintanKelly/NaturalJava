@@ -1,11 +1,8 @@
 package language;
 
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class will contain methods that turn basic boolean algebra into natural
@@ -167,20 +164,5 @@ public final class BooleanLanguage {
         Set<Object> objectSet = new HashSet<>(Arrays.asList(objects));
 
         return objectSet.size() == 1;
-    }
-
-    /**
-     * Checks to see if a given method belongs to the given class or not.
-     *
-     * @param method - The method that is being checked
-     * @return - True if the method does not belong to the class and false if it
-     * does
-     */
-    public static boolean overridesMethod(Method method) {
-        if (Object.class != method.getDeclaringClass()) {
-            return true;
-        }
-
-        return false;
     }
 }
